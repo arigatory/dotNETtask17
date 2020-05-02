@@ -7,6 +7,75 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Загрузить"/>
+                <MenuItem Header="Сохранить"/>
+                <MenuItem Header="Выйти"/>
+            </MenuItem>
+            <MenuItem Header="Правка">
+                <MenuItem Header="Добавить автора"/>
+                <MenuItem Header="Добавить книгу"/>
+                <MenuItem Header="Удалить книгу"/>
+            </MenuItem>
+        </Menu>
+        <ListBox Grid.Row="1" Grid.Column="0">
+            <ListBoxItem>test 1</ListBoxItem>
+            <ListBoxItem>test 1</ListBoxItem>
+        </ListBox>
         
+        
+        <Grid Grid.Row="1" Grid.Column="1" Margin="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="3">Название</TextBlock>
+            <TextBox   Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="3"></TextBox>
+            
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="3">Авторы</TextBlock>
+            <ListBox   Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch"  Margin="3"></ListBox>
+            
+            <StackPanel Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom"  Margin="3" Orientation="Horizontal" Grid.ColumnSpan="2">
+                <TextBlock VerticalAlignment="Center" Margin="3">Год издания</TextBlock>
+                <TextBox MinWidth="100" Margin="3"></TextBox>
+                <TextBlock Foreground="Red" FontWeight="Bold" Margin="3" VerticalAlignment="Center">Новинка!!!</TextBlock>
+            </StackPanel>            
+            
+        </Grid>
+        
+        
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
+            <Button Margin="3" Padding="5">Добавить книгу</Button>
+            <Button Margin="3" Padding="5">Удалить книгу</Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
+            <Button Margin="3" Padding="5">Добавить автора</Button>
+            <Button Margin="3" Padding="5">Удалить автора</Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
+            <Button Margin="3" Padding="5">Загрузить</Button>
+            <Button Margin="3" Padding="5">Сохранить</Button>
+            <Button Margin="3" Padding="5">Выйти</Button>
+        </StackPanel>
     </Grid>
 </Window>
