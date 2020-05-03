@@ -4,19 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:dotNETtask17"
+        d:DataContext="{d:DesignInstance viewModels:BookViewModel}"
+        xmlns:viewModels="clr-namespace:dotNETtask17.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" SizeToContent="Width" Height="400">
+        Title="MainWindow" Height="400" Width="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <MenuItem Header="Файл">
@@ -30,10 +32,10 @@
                 <MenuItem Header="Удалить книгу"/>
             </MenuItem>
         </Menu>
-        <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=Books}">
+        <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=Books}" SelectedItem="{Binding CurrentBook}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Path=Title}"/>
+                    <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Path=Title}" Width="200"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -41,7 +43,7 @@
         
         <Grid Grid.Row="1" Grid.Column="1" Margin="3">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
@@ -51,14 +53,16 @@
             </Grid.ColumnDefinitions>
             
             <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="3">Название</TextBlock>
-            <TextBox   Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="3"></TextBox>
+            <TextBox   Grid.Row="0" Grid.Column="1" 
+                       VerticalAlignment="Stretch" Margin="3" Text="{Binding Path=CurrentBook.Title}" 
+                       TextWrapping="Wrap"></TextBox>
             
             <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="3">Авторы</TextBlock>
-            <ListBox   Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch"  Margin="3"></ListBox>
+            <ListBox   Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch"  Margin="3" ItemsSource="{Binding Path=CurrentBook.Authors}"></ListBox>
             
             <StackPanel Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom"  Margin="3" Orientation="Horizontal" Grid.ColumnSpan="2">
                 <TextBlock VerticalAlignment="Center" Margin="3">Год издания</TextBlock>
-                <TextBox MinWidth="100" Margin="3"></TextBox>
+                <TextBox MinWidth="100" Margin="3" Text="{Binding Path=CurrentBook.Year}"></TextBox>
                 <TextBlock Foreground="Red" FontWeight="Bold" Margin="3" VerticalAlignment="Center">Новинка!!!</TextBlock>
             </StackPanel>            
             
@@ -66,7 +70,7 @@
         
         
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
-            <Button Margin="3" Padding="5">Добавить книгу</Button>
+            <Button Margin="3" Padding="5" Click="Add">Добавить книгу</Button>
             <Button Margin="3" Padding="5">Удалить книгу</Button>
         </StackPanel>
 
@@ -77,8 +81,8 @@
 
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
             <Button Margin="3" Padding="5">Загрузить</Button>
-            <Button Margin="3" Padding="5">Сохранить</Button>
-            <Button Margin="3" Padding="5">Выйти</Button>
+            <Button Margin="3" Padding="5" Click="Save">Сохранить</Button>
+            <Button Margin="3" Padding="5" Click="Exit">Выйти</Button>
         </StackPanel>
     </Grid>
 </Window>

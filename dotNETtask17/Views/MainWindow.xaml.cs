@@ -21,10 +21,26 @@ namespace dotNETtask17
     /// </summary>
     public partial class MainWindow : Window
     {
+        BookViewModel vm = new BookViewModel();
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new BookViewModel();
+            DataContext = vm;
+        }
+
+        private void Add(object sender, RoutedEventArgs e)
+        {
+            vm.Add();
+        }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Save(object sender, RoutedEventArgs e)
+        {
+            (DataContext as BookViewModel).Save();
         }
     }
 }

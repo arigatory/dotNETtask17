@@ -2,14 +2,18 @@
 using dotNETtask17.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace dotNETtask17.ViewModels
 {
-    class BookViewModel
+    public class BookViewModel 
     {
+        
+
         public BookViewModel()
         {
             _bookModel = new BookModel();
@@ -17,8 +21,21 @@ namespace dotNETtask17.ViewModels
             ReloadBooks();
         }
 
-        public List<Book> Books { get; private set; }
-        public Book CurrentBook { get; set; }
+        public List<Book> Books
+        {
+            get => _books;
+            private set
+            {
+                _books = value;
+            }
+        }
+        public Book CurrentBook
+        {
+            get => currentBook; set
+            {
+                currentBook = value;
+            }
+        }
 
         public void Add()
         {
@@ -40,6 +57,9 @@ namespace dotNETtask17.ViewModels
             Books = new List<Book>(_bookModel.Books);
         }
         private readonly BookModel _bookModel;
+        private List<Book> _books;
+        private Book currentBook;
 
+        
     }
 }
