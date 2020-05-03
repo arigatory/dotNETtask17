@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:dotNETtask17"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" SizeToContent="Width" Height="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,8 +15,8 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <MenuItem Header="Файл">
@@ -30,10 +30,13 @@
                 <MenuItem Header="Удалить книгу"/>
             </MenuItem>
         </Menu>
-        <ListBox Grid.Row="1" Grid.Column="0">
-            <ListBoxItem>test 1</ListBoxItem>
-            <ListBoxItem>test 1</ListBoxItem>
-        </ListBox>
+        <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=Books}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Path=Title}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
         
         
         <Grid Grid.Row="1" Grid.Column="1" Margin="3">

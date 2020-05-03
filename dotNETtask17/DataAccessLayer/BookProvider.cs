@@ -22,7 +22,21 @@ namespace dotNETtask17.DataAccessLayer
         {
             if (!File.Exists(_fileName))
             {
-                return new Book[0];
+                return new Book[]
+                {
+                    new Book()
+                    {
+                        Title = "WPF Windows Presentation Foundation в .NET 4.5 с примерами на C# 5.0",
+                        Authors = new List<string>(){"Мэтью Мак-Дональд"},
+                        Year = 2013
+                    },
+                    new Book()
+                    {
+                        Title = "TCP/IP Сетевое администрирование",
+                        Authors = new List<string>(){"Крейг Хант"},
+                        Year = 2014
+                    }
+                };
             }
 
             using (StreamReader sr = new StreamReader(_fileName))
