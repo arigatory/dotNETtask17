@@ -6,8 +6,12 @@
         xmlns:local="clr-namespace:dotNETtask17"
         d:DataContext="{d:DesignInstance viewModels:BookViewModel}"
         xmlns:viewModels="clr-namespace:dotNETtask17.ViewModels"
+        xmlns:converters="clr-namespace:dotNETtask17.Views.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="400" Width="600">
+    <Window.Resources>
+        <converters:NewBookConverter x:Key="newBookConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -23,13 +27,13 @@
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <MenuItem Header="Файл">
                 <MenuItem Header="Загрузить"/>
-                <MenuItem Header="Сохранить"/>
-                <MenuItem Header="Выйти"/>
+                <MenuItem Header="Сохранить" Command="{Binding SaveCommand}"/>
+                <MenuItem Header="Выйти" Command="{Binding ExitCommand}"/>
             </MenuItem>
             <MenuItem Header="Правка">
                 <MenuItem Header="Добавить автора"/>
-                <MenuItem Header="Добавить книгу"/>
-                <MenuItem Header="Удалить книгу"/>
+                <MenuItem Header="Добавить книгу" Command="{Binding AddBookCommand}"/>
+                <MenuItem Header="Удалить книгу" Command="{Binding DeleteBookCommand}"/>
             </MenuItem>
         </Menu>
         <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=Books}" SelectedItem="{Binding CurrentBook}">
@@ -63,15 +67,16 @@
             <StackPanel Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom"  Margin="3" Orientation="Horizontal" Grid.ColumnSpan="2">
                 <TextBlock VerticalAlignment="Center" Margin="3">Год издания</TextBlock>
                 <TextBox MinWidth="100" Margin="3" Text="{Binding Path=CurrentBook.Year}"></TextBox>
-                <TextBlock Foreground="Red" FontWeight="Bold" Margin="3" VerticalAlignment="Center">Новинка!!!</TextBlock>
+                <TextBlock Foreground="Red" FontWeight="Bold" Margin="3" VerticalAlignment="Center" 
+                           Text="{Binding CurrentBook.Year,Converter={StaticResource newBookConverter}}"/>
             </StackPanel>            
             
         </Grid>
         
         
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
-            <Button Margin="3" Padding="5" Click="Add">Добавить книгу</Button>
-            <Button Margin="3" Padding="5">Удалить книгу</Button>
+            <Button Margin="3" Padding="5" Command="{Binding AddBookCommand}">Добавить книгу</Button>
+            <Button Margin="3" Padding="5" Command="{Binding DeleteBookCommand}">Удалить книгу</Button>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
@@ -81,8 +86,8 @@
 
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
             <Button Margin="3" Padding="5">Загрузить</Button>
-            <Button Margin="3" Padding="5" Click="Save">Сохранить</Button>
-            <Button Margin="3" Padding="5" Click="Exit">Выйти</Button>
+            <Button Margin="3" Padding="5" Command="{Binding SaveCommand}">Сохранить</Button>
+            <Button Margin="3" Padding="5" Command="{Binding ExitCommand}">Выйти</Button>
         </StackPanel>
     </Grid>
 </Window>

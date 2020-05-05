@@ -27,20 +27,5 @@ namespace dotNETtask17
             InitializeComponent();
             DataContext = vm;
         }
-
-        private void Add(object sender, RoutedEventArgs e)
-        {
-            vm.Add();
-        }
-
-        private void Exit(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void Save(object sender, RoutedEventArgs e)
-        {
-            (DataContext as BookViewModel).Save();
-        }
     }
 }

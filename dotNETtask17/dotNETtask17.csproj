@@ -66,6 +66,8 @@
     </Compile>
     <Compile Include="DataAccessLayer\BookProvider.cs" />
     <Compile Include="DataAccessLayer\Entities\Book.cs" />
+    <Compile Include="ViewModels\Common\RelayCommand.cs" />
+    <Compile Include="Views\Converters\NewBookConverter.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

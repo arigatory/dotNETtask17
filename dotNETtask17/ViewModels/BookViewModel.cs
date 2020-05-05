@@ -1,16 +1,19 @@
 ﻿using dotNETtask17.DataAccessLayer.Entities;
 using dotNETtask17.Models;
+using dotNETtask17.ViewModels.Common;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace dotNETtask17.ViewModels
 {
-    public class BookViewModel 
+    public class BookViewModel : INotifyPropertyChanged
     {
         
 
@@ -19,14 +22,26 @@ namespace dotNETtask17.ViewModels
             _bookModel = new BookModel();
             _bookModel.BookListChanged += (sender, e) => ReloadBooks();
             ReloadBooks();
+
+            AddBookCommand = new RelayCommand(_ => Add());
+            DeleteBookCommand = new RelayCommand(_ => DeleteBook(), _ => CanDeleteBook());
+            SaveCommand = new RelayCommand(_ => Save());
+            ExitCommand = new RelayCommand(_ => Exit());
+
         }
 
-        public List<Book> Books
+        private void Exit()
+        {
+            Application.Current.Shutdown();
+        }
+
+        public ObservableCollection<Book> Books
         {
             get => _books;
             private set
             {
                 _books = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Books"));
             }
         }
         public Book CurrentBook
@@ -34,17 +49,26 @@ namespace dotNETtask17.ViewModels
             get => currentBook; set
             {
                 currentBook = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CurrentBook"));
+
             }
         }
 
         public void Add()
         {
-            Books.Add(new Book());
+            Book b = new Book();
+            Books.Add(b);
+            CurrentBook = b;
         }
 
-        public void Delete()
+        public void DeleteBook()
         {
             Books.Remove(CurrentBook);
+        }
+
+        private bool CanDeleteBook()
+        {
+            return CurrentBook != null;
         }
 
         public void Save()
@@ -54,12 +78,26 @@ namespace dotNETtask17.ViewModels
 
         private void ReloadBooks()
         {
-            Books = new List<Book>(_bookModel.Books);
+            Books = new ObservableCollection<Book>(_bookModel.Books);
         }
         private readonly BookModel _bookModel;
-        private List<Book> _books;
+        private ObservableCollection<Book> _books;
         private Book currentBook;
 
-        
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public RelayCommand AddBookCommand { get; }
+        public RelayCommand DeleteBookCommand { get; }
+        public RelayCommand AddAuthorCommand { get; }
+        public RelayCommand DeleteAuthorCommand { get; }
+        public RelayCommand SaveCommand { get; }
+        public RelayCommand ExitCommand { get; }
+
+
     }
 }
