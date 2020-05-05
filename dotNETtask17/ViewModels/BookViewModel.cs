@@ -30,10 +30,7 @@ namespace dotNETtask17.ViewModels
 
         }
 
-        private void Exit()
-        {
-            Application.Current.Shutdown();
-        }
+  
 
         public ObservableCollection<Book> Books
         {
@@ -44,6 +41,21 @@ namespace dotNETtask17.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Books"));
             }
         }
+
+        public ObservableCollection<string> Authors
+        {
+            get
+            {
+                return CurrentBook?.Authors;
+            }
+            private set
+            {
+                _authors = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Authors"));
+            }
+        }
+
+
         public Book CurrentBook
         {
             get => currentBook; set
@@ -76,20 +88,30 @@ namespace dotNETtask17.ViewModels
             _bookModel.Save(Books.ToArray());
         }
 
+        private void Exit()
+        {
+            Application.Current.Shutdown();
+        }
+
         private void ReloadBooks()
         {
             Books = new ObservableCollection<Book>(_bookModel.Books);
         }
-        private readonly BookModel _bookModel;
-        private ObservableCollection<Book> _books;
-        private Book currentBook;
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        
 
         protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
+        private readonly BookModel _bookModel;
+        private ObservableCollection<Book> _books;
+        private Book currentBook;
+        private ObservableCollection<string> _authors;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
 
         public RelayCommand AddBookCommand { get; }
         public RelayCommand DeleteBookCommand { get; }
@@ -97,7 +119,5 @@ namespace dotNETtask17.ViewModels
         public RelayCommand DeleteAuthorCommand { get; }
         public RelayCommand SaveCommand { get; }
         public RelayCommand ExitCommand { get; }
-
-
     }
 }

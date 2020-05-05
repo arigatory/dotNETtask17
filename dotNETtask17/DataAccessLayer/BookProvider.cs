@@ -1,6 +1,7 @@
 ﻿using dotNETtask17.DataAccessLayer.Entities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,13 +28,13 @@ namespace dotNETtask17.DataAccessLayer
                     new Book()
                     {
                         Title = "WPF Windows Presentation Foundation в .NET 4.5 с примерами на C# 5.0",
-                        Authors = new List<string>(){"Мэтью Мак-Дональд"},
+                        Authors = new ObservableCollection<string>(){"Мэтью Мак-Дональд"},
                         Year = 2013
                     },
                     new Book()
                     {
                         Title = "TCP/IP Сетевое администрирование",
-                        Authors = new List<string>(){"Крейг Хант"},
+                        Authors = new ObservableCollection<string>(){"Крейг Хант"},
                         Year = 2014
                     }
                 };

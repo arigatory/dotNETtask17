@@ -62,7 +62,14 @@
                        TextWrapping="Wrap"></TextBox>
             
             <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="3">Авторы</TextBlock>
-            <ListBox   Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch"  Margin="3" ItemsSource="{Binding Path=CurrentBook.Authors}"></ListBox>
+            <ListBox   Name="lb" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch"  Margin="3"
+                       ItemsSource="{Binding Path=CurrentBook.Authors}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBox Text="       "/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             
             <StackPanel Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom"  Margin="3" Orientation="Horizontal" Grid.ColumnSpan="2">
                 <TextBlock VerticalAlignment="Center" Margin="3">Год издания</TextBlock>

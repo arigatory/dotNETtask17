@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -11,7 +12,7 @@ namespace dotNETtask17.DataAccessLayer.Entities
     public class Book : INotifyPropertyChanged
     {
         private string _title;
-        private List<string> _authors;
+        private ObservableCollection<string> _authors;
         private int _year;
 
         public string Title { get => _title; set
@@ -23,7 +24,7 @@ namespace dotNETtask17.DataAccessLayer.Entities
                 }
             }
         }
-        public List<string> Authors { get => _authors; set
+        public ObservableCollection<string> Authors { get => _authors; set
             {
                 _authors = value;
                 RaisePropertyChanged();
