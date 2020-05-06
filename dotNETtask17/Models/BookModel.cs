@@ -27,7 +27,6 @@ namespace dotNETtask17.Models
 
         public event EventHandler BookListChanged;
 
-
         public Book[] Books { get; set; }
         private readonly BookProvider _bookProvider;
     }

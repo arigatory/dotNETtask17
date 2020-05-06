@@ -13,20 +13,54 @@ using System.Windows;
 
 namespace dotNETtask17.ViewModels
 {
+
+    public class StringContent : INotifyPropertyChanged
+    {
+        string _content;
+        public string Content
+        {
+            get => _content;
+            set
+            {
+                _content = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
     public class BookViewModel : INotifyPropertyChanged
     {
-        
+        private readonly BookModel _bookModel;
+        private ObservableCollection<Book> _books;
+        private ObservableCollection<StringContent> _authors;
 
+        private Book _currentBook;
+        private StringContent _currentAuthor;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        
         public BookViewModel()
         {
             _bookModel = new BookModel();
-            _bookModel.BookListChanged += (sender, e) => ReloadBooks();
+            _bookModel.BookListChanged += (sender, e) =>
+            {
+                ReloadBooks();
+            };
             ReloadBooks();
-
-            AddBookCommand = new RelayCommand(_ => Add());
+            AddBookCommand = new RelayCommand(_ => AddBook());
             DeleteBookCommand = new RelayCommand(_ => DeleteBook(), _ => CanDeleteBook());
             SaveCommand = new RelayCommand(_ => Save());
             ExitCommand = new RelayCommand(_ => Exit());
+            AddAuthorCommand = new RelayCommand(_ => AddAuthor());
+            DeleteAuthorCommand = new RelayCommand(_ => DeleteAuthor(), _ => CanDeleteAuthor());
+            LoadCommand = new RelayCommand(_ => { ReloadBooks(); ReloadAuthors(); });
 
         }
 
@@ -42,13 +76,10 @@ namespace dotNETtask17.ViewModels
             }
         }
 
-        public ObservableCollection<string> Authors
+        public ObservableCollection<StringContent> Authors
         {
-            get
-            {
-                return CurrentBook?.Authors;
-            }
-            private set
+            get => _authors;
+            set
             {
                 _authors = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Authors"));
@@ -58,19 +89,36 @@ namespace dotNETtask17.ViewModels
 
         public Book CurrentBook
         {
-            get => currentBook; set
+            get => _currentBook; set
             {
-                currentBook = value;
+                _currentBook = value;
+                ReloadAuthors();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CurrentBook"));
-
             }
         }
 
-        public void Add()
+        public StringContent CurrentAuthor
+        {
+            get => _currentAuthor; set
+            {
+                _currentAuthor = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CurrentAuthor"));
+            }
+        }
+
+
+        public void AddBook()
         {
             Book b = new Book();
             Books.Add(b);
             CurrentBook = b;
+        }
+
+        private void AddAuthor()
+        {
+            StringContent s = new StringContent() { Content="test"};
+            Authors.Add(s);
+            CurrentAuthor = s;
         }
 
         public void DeleteBook()
@@ -78,6 +126,15 @@ namespace dotNETtask17.ViewModels
             Books.Remove(CurrentBook);
         }
 
+        public void DeleteAuthor()
+        {
+            Authors.Remove(CurrentAuthor);
+        }
+
+        private bool CanDeleteAuthor()
+        {
+            return CurrentAuthor != null;
+        }
         private bool CanDeleteBook()
         {
             return CurrentBook != null;
@@ -85,6 +142,14 @@ namespace dotNETtask17.ViewModels
 
         public void Save()
         {
+            if (CurrentBook != null && Authors != null)
+            {
+                CurrentBook.Authors = new ObservableCollection<string>();
+                foreach (var author in Authors)
+                {
+                    CurrentBook.Authors.Add(author.Content);
+                }
+            }
             _bookModel.Save(Books.ToArray());
         }
 
@@ -97,20 +162,22 @@ namespace dotNETtask17.ViewModels
         {
             Books = new ObservableCollection<Book>(_bookModel.Books);
         }
-        
 
+        private void ReloadAuthors()
+        {
+            Authors = new ObservableCollection<StringContent>();
+            if (CurrentBook != null && CurrentBook.Authors != null)
+            {
+                foreach (string author in CurrentBook.Authors)
+                {
+                    Authors.Add(new StringContent() { Content = author });
+                }
+            }
+        }
         protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
-        private readonly BookModel _bookModel;
-        private ObservableCollection<Book> _books;
-        private Book currentBook;
-        private ObservableCollection<string> _authors;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
 
         public RelayCommand AddBookCommand { get; }
@@ -119,5 +186,6 @@ namespace dotNETtask17.ViewModels
         public RelayCommand DeleteAuthorCommand { get; }
         public RelayCommand SaveCommand { get; }
         public RelayCommand ExitCommand { get; }
+        public RelayCommand LoadCommand { get; }
     }
 }

@@ -36,6 +36,12 @@ namespace dotNETtask17.DataAccessLayer
                         Title = "TCP/IP Сетевое администрирование",
                         Authors = new ObservableCollection<string>(){"Крейг Хант"},
                         Year = 2014
+                    },
+                    new Book()
+                    {
+                        Title = "Векторный анализ",
+                        Authors = new ObservableCollection<string>(){"М.Л. Краснов","А.И. Киселев","Г.И. Макаренко"},
+                        Year = 2014
                     }
                 };
             }

@@ -26,12 +26,13 @@
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <MenuItem Header="Файл">
-                <MenuItem Header="Загрузить"/>
+                <MenuItem Header="Загрузить" Command="{Binding LoadCommand}"/>
                 <MenuItem Header="Сохранить" Command="{Binding SaveCommand}"/>
                 <MenuItem Header="Выйти" Command="{Binding ExitCommand}"/>
             </MenuItem>
             <MenuItem Header="Правка">
-                <MenuItem Header="Добавить автора"/>
+                <MenuItem Header="Добавить автора" Command="{Binding AddAuthorCommand}"/>
+                <MenuItem Header="Удалить автора" Command="{Binding DeleteAuthorCommand}"/>
                 <MenuItem Header="Добавить книгу" Command="{Binding AddBookCommand}"/>
                 <MenuItem Header="Удалить книгу" Command="{Binding DeleteBookCommand}"/>
             </MenuItem>
@@ -48,7 +49,7 @@
         <Grid Grid.Row="1" Grid.Column="1" Margin="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -63,10 +64,10 @@
             
             <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="3">Авторы</TextBlock>
             <ListBox   Name="lb" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch"  Margin="3"
-                       ItemsSource="{Binding Path=CurrentBook.Authors}">
+                       ItemsSource="{Binding Path=Authors, Mode=TwoWay}" SelectedItem="{Binding CurrentAuthor, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBox Text="{Binding Mode=OneWay}"/>
+                        <TextBox Text="{Binding Mode=TwoWay, Path=Content}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -87,12 +88,12 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
-            <Button Margin="3" Padding="5">Добавить автора</Button>
-            <Button Margin="3" Padding="5">Удалить автора</Button>
+            <Button Margin="3" Padding="5" Command="{Binding AddAuthorCommand}">Добавить автора</Button>
+            <Button Margin="3" Padding="5" Command="{Binding DeleteAuthorCommand}">Удалить автора</Button>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
-            <Button Margin="3" Padding="5">Загрузить</Button>
+            <Button Margin="3" Padding="5" Command="{Binding LoadCommand}">Загрузить</Button>
             <Button Margin="3" Padding="5" Command="{Binding SaveCommand}">Сохранить</Button>
             <Button Margin="3" Padding="5" Command="{Binding ExitCommand}">Выйти</Button>
         </StackPanel>
