@@ -107,7 +107,7 @@ namespace dotNETtask17.ViewModels
         }
 
 
-        public void AddBook()
+        private void AddBook()
         {
             Book b = new Book();
             Books.Add(b);
@@ -121,12 +121,12 @@ namespace dotNETtask17.ViewModels
             CurrentAuthor = s;
         }
 
-        public void DeleteBook()
+        private void DeleteBook()
         {
             Books.Remove(CurrentBook);
         }
 
-        public void DeleteAuthor()
+        private void DeleteAuthor()
         {
             Authors.Remove(CurrentAuthor);
         }
@@ -140,7 +140,7 @@ namespace dotNETtask17.ViewModels
             return CurrentBook != null;
         }
 
-        public void Save()
+        private void Save()
         {
             if (CurrentBook != null && Authors != null)
             {
