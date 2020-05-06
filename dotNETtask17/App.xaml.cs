@@ -1,12 +1,6 @@
 ﻿using dotNETtask17.DataAccessLayer;
 using dotNETtask17.Models;
 using dotNETtask17.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace dotNETtask17
