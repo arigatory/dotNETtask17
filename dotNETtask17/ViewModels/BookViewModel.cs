@@ -27,9 +27,9 @@ namespace dotNETtask17.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
         
-        public BookViewModel()
+        public BookViewModel(BookModel model)
         {
-            _bookModel = new BookModel();
+            _bookModel = model;
             _bookModel.BookListChanged += (sender, e) =>
             {
                 ReloadBooks();

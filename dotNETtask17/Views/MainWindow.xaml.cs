@@ -20,12 +20,10 @@ namespace dotNETtask17
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
-        BookViewModel vm = new BookViewModel();
+    { 
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = vm;
         }
     }
 }

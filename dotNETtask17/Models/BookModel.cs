@@ -7,9 +7,9 @@ namespace dotNETtask17.Models
     public class BookModel
     {
 
-        public BookModel()
+        public BookModel(BookProvider provider)
         {
-            _bookProvider = new BookProvider("Books.xml");
+            _bookProvider = provider;
             Load();
         }
        

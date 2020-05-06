@@ -1,4 +1,7 @@
-﻿using System;
+﻿using dotNETtask17.DataAccessLayer;
+using dotNETtask17.Models;
+using dotNETtask17.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +16,16 @@ namespace dotNETtask17
     /// </summary>
     public partial class App : Application
     {
+        private void OnStartup(object sender, StartupEventArgs e)
+        {
+            BookProvider provider = new BookProvider("Books.xml");
+            BookModel model = new BookModel(provider);
+            BookViewModel vm = new BookViewModel(model);
+            
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.DataContext = vm;
+            MainWindow = mainWindow;
+            mainWindow.Show();
+        }
     }
 }
