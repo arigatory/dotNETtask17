@@ -14,26 +14,7 @@ using System.Windows;
 namespace dotNETtask17.ViewModels
 {
 
-    public class StringContent : INotifyPropertyChanged
-    {
-        string _content;
-        public string Content
-        {
-            get => _content;
-            set
-            {
-                _content = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
+    
 
     public class BookViewModel : INotifyPropertyChanged
     {
@@ -179,7 +160,6 @@ namespace dotNETtask17.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
         public RelayCommand AddBookCommand { get; }
         public RelayCommand DeleteBookCommand { get; }
         public RelayCommand AddAuthorCommand { get; }
@@ -187,5 +167,26 @@ namespace dotNETtask17.ViewModels
         public RelayCommand SaveCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand LoadCommand { get; }
+    }
+
+    public class StringContent : INotifyPropertyChanged
+    {
+        string _content;
+        public string Content
+        {
+            get => _content;
+            set
+            {
+                _content = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
