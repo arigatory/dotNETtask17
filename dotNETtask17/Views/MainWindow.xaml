@@ -11,6 +11,13 @@
         Title="MainWindow" Height="400" Width="600">
     <Window.Resources>
         <converters:NewBookConverter x:Key="newBookConverter"/>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="3"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -57,13 +64,13 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
-            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="3">Название</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">Название</TextBlock>
             <TextBox   Grid.Row="0" Grid.Column="1" 
-                       VerticalAlignment="Stretch" Margin="3" Text="{Binding Path=CurrentBook.Title}" 
+                       VerticalAlignment="Stretch" Text="{Binding Path=CurrentBook.Title}" 
                        TextWrapping="Wrap"></TextBox>
             
-            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="3">Авторы</TextBlock>
-            <ListBox   Name="lb" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch"  Margin="3"
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">Авторы</TextBlock>
+            <ListBox   Name="lb" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" Margin="3"
                        ItemsSource="{Binding Path=Authors, Mode=TwoWay}" SelectedItem="{Binding CurrentAuthor, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -72,30 +79,30 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             
-            <StackPanel Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom"  Margin="3" Orientation="Horizontal" Grid.ColumnSpan="2">
+            <StackPanel Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.ColumnSpan="2">
                 <TextBlock VerticalAlignment="Center" Margin="3">Год издания</TextBlock>
                 <TextBox MinWidth="100" Margin="3" Text="{Binding Path=CurrentBook.Year}"></TextBox>
-                <TextBlock Foreground="Red" FontWeight="Bold" Margin="3" VerticalAlignment="Center" 
+                <TextBlock Foreground="Red" FontWeight="Bold" VerticalAlignment="Center" 
                            Text="{Binding CurrentBook.Year,Converter={StaticResource newBookConverter}}"/>
             </StackPanel>            
             
         </Grid>
         
         
-        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
-            <Button Margin="3" Padding="5" Command="{Binding AddBookCommand}">Добавить книгу</Button>
-            <Button Margin="3" Padding="5" Command="{Binding DeleteBookCommand}">Удалить книгу</Button>
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Command="{Binding AddBookCommand}">Добавить книгу</Button>
+            <Button Command="{Binding DeleteBookCommand}">Удалить книгу</Button>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
-            <Button Margin="3" Padding="5" Command="{Binding AddAuthorCommand}">Добавить автора</Button>
-            <Button Margin="3" Padding="5" Command="{Binding DeleteAuthorCommand}">Удалить автора</Button>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Command="{Binding AddAuthorCommand}">Добавить автора</Button>
+            <Button Command="{Binding DeleteAuthorCommand}">Удалить автора</Button>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
-            <Button Margin="3" Padding="5" Command="{Binding LoadCommand}">Загрузить</Button>
-            <Button Margin="3" Padding="5" Command="{Binding SaveCommand}">Сохранить</Button>
-            <Button Margin="3" Padding="5" Command="{Binding ExitCommand}">Выйти</Button>
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Command="{Binding LoadCommand}">Загрузить</Button>
+            <Button Command="{Binding SaveCommand}">Сохранить</Button>
+            <Button Command="{Binding ExitCommand}">Выйти</Button>
         </StackPanel>
     </Grid>
 </Window>
